@@ -88,7 +88,7 @@ Die Anwendung wird laufend auf [www.car-bonara.de](https://www.car-bonara.de) be
 
 
 # Erstmaliges Öffnen der Anwendung
-Standardmäßig öffnet sich die Anwendung
+Wie bereits beschrieben lässt sich die Anwendung wenige Sekunden nach dem Hochfahren auf Port 8080 in der lokalen Installation.
 
 Nach dem Start befinden sich bereits Daten in der Datenbank. Darunter fällt auch ein Administrationskonto mit dem Namen "ENTWICKLER KONTO". Wie für jeden Mitarbeiter ist das Standardpasswort hierfür anfänglich "{Vorname}123" und sollte anschließend dringend geändert werden. Somit sollte sich nach dem erstmaligen Hochfahren der Anwendung mit dem folgenden Konto anmeldet werden:
 
