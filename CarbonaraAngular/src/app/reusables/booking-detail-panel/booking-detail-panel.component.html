@@ -1,0 +1,45 @@
+<mat-expansion-panel *ngIf="booking" [class.backcolor-primary]="isActive()">
+  <mat-expansion-panel-header>
+    <mat-panel-title [class.cancelled]="booking.cancelled">
+      {{ getHeaderString() }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div>
+    <div class="row">
+      <div class="col">
+        <div>
+          <cb-icon icon="directions_car" [label]="getCarString()"></cb-icon>
+        </div>
+
+        <div class="my-4">
+          <cb-icon icon="local_parking" [label]="booking.startStation.name + ' ' + getStartTime()"></cb-icon>
+          <cb-icon icon="arrow_downward" [label]="getBookingDuration()"></cb-icon>
+          <cb-icon icon="local_parking" *ngIf="!booking.returned" [label]="booking.endStation.name + '(' + getEndTime() + ')'"></cb-icon>
+          <cb-icon icon="local_parking" *ngIf="booking.returned" [label]="booking.endStation.name + '(' + getEndTime() + '/' + getReturnedTime() +')'"></cb-icon>
+        </div>
+      </div>
+      <div class="col" *ngIf="isActive()">
+        <div style="text-align: right" *ngIf="!car">
+          <button mat-raised-button color="accent" (click)="startBooking()">Starten!</button>
+        </div>
+        <div style="text-align: right; display: flex" *ngIf="car">
+          <button mat-raised-button color="accent" (click)="endBooking()">Buchung beenden</button>
+          <button mat-raised-button (click)="toggleLock()">
+            <cb-icon style="font-size: 1em" [icon]="car.lockStatus == 1 ? 'lock_open' : 'lock'" [label]="car.lockStatus == 1 ? 'Öffnen' : 'Schließen'"></cb-icon>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="isFuture() && !booking.cancelled">
+        <div style="text-align: right">
+          <button mat-raised-button color="primary" (click)="cancelBooking()">Stornieren!</button>
+        </div>
+        
+      </div>
+
+      <div class="col" *ngIf="booking.returned">       
+          <button mat-raised-button color="accent" (click)="showBill(booking)">Rechnung anzeigen</button>         
+      </div>
+
+    </div>
+  </div>
+</mat-expansion-panel>

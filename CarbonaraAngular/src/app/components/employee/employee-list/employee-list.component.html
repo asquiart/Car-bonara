@@ -1,0 +1,65 @@
+<h1>Mitarbeiterübersicht</h1>
+
+<div *ngFor="let e of adminService.employees">
+
+
+    <mat-expansion-panel hideToggle>
+
+        <mat-expansion-panel-header style="background-color: rgb(233, 233, 233);">
+
+            <mat-panel-title>
+                <div style="vertical-align: middle;">
+                    <span>
+                        <mat-chip>{{e.person.id}}</mat-chip>
+                    </span>
+                    <span class="mx-3">
+                        {{e.person.title + " " + e.person.firstname + " " + e.person.lastname}}
+                    </span>
+                </div>
+
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+
+        <div class="col" style="text-align: start;">
+
+            <div class="my-2">
+
+
+                <div class="row">
+                    <cb-icon icon="admin_panel_settings" [label]="'ist Administrator: ' + (e.isAdmin? 'Ja' : 'Nein') ">
+                    </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="email" [label]="'E-Mail: ' + e.person.email "> </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="subject" [label]="'Anrede: ' + e.person.formOfAddress "> </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="event" [label]="'Letzter Login: ' +  getDate(e.person.lastLogin)"> </cb-icon>
+                </div>
+
+            </div>
+
+            <div class="col">
+                <div class="row">
+                    <button mat-raised-button color="primary" (click)="change(e)"> Bearbeiten</button>
+                </div>
+                <div class="row">
+                    <button mat-raised-button color="primary" (click)="deleteEmployee(e)"> Löschen</button>
+                </div>
+            </div>
+        </div>
+
+    </mat-expansion-panel>
+
+
+
+
+</div>
+
+
+<div class="row">
+    <button mat-raised-button color="accent" (click)="addNew()"> Hinzufügen</button>
+</div>

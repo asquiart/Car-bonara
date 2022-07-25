@@ -1,0 +1,33 @@
+.offline {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    animation-name: load-offline;
+    animation-duration: 0.7s;
+    animation-fill-mode: both;
+    animation-timing-function: ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes load-offline
+{
+    from {
+        background-color: #00000000;
+    }
+    to {
+        background-color: #4d4d4dde;
+    }
+}
+
+.offline-icon
+{
+    transform: scale(2);
+    background-color: black;
+    border-radius: 5px;
+    padding: 5px;
+}

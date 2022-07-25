@@ -1,0 +1,60 @@
+<mat-card>
+    <mat-card-title>
+        Fahrzeugmodell
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="form">
+
+        <div class="container" style="margin-right: 6%;">
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" />
+                    <mat-error>
+                        Geben Sie einen gültigen Namen ein
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Hersteller</mat-label>
+                    <input matInput formControlName="manufacturer" />
+                    <mat-error>
+                        Geben Sie einen gültigen Hersteller ein
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Treibstoffart</mat-label>
+                    <input matInput formControlName="fueltype" />
+                    <mat-error>
+                        Geben Sie einen gültigen Treibstoff ein
+                    </mat-error>
+                </mat-form-field>
+            </div>  
+           
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Autoklasse</mat-label>
+                    <mat-select formControlName="carclass">
+                        <mat-option *ngFor="let carclass of databaseService.carclasses " [value]="carclass.id">
+                            {{carclass.name}}
+                        </mat-option>                       
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+        </div>
+
+        </form>
+    </mat-card-content>
+    
+    <mat-card-actions style="text-align: center;">
+        <button mat-raised-button color="primary" ass="m-4"  (click)="cancel()">Abbrechen</button>
+        <button mat-raised-button color="accent" class="m-4" [disabled]="form.invalid" (click)="onSubmit()">Speichern</button>
+    </mat-card-actions>
+    <mat-card-footer>
+        <mat-progress-bar mode="indeterminate" *ngIf="working"></mat-progress-bar>
+    </mat-card-footer>
+</mat-card>

@@ -1,0 +1,79 @@
+<h1>Buche dein Fahrzeug!</h1>
+<p>Stelle dir deine Fahrt mit einem Fahrzeug von Carbonara zusammen</p>
+
+<form [formGroup]="form" style="margin-top: 30px">
+    <div class="container">
+        <div class="m-3">
+            <h3>Auswahl der Start- und Zielstationen</h3>
+            <mat-card>
+                <div class="row">
+                    <div class="col">
+                        <cb-select-station label="Startstation" formControlName="startStation"></cb-select-station>
+                    </div>
+                    <div class="col">
+                        <cb-select-station label="Zielstation" formControlName="endStation"></cb-select-station>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <div class="m-3">
+            <h3>Auswahl des Buchungszeitraums</h3>
+            <mat-card>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field>
+                            <mat-label>Startzeitpunkt</mat-label>
+                            <input matInput type="datetime-local" formControlName="startTime" [min]="nowTime()"
+                                [max]="form.value.endTime">
+                            <mat-error>Geben Sie einen gültigen Zeitpunkt an</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field>
+                            <mat-label>Zielzeitpunkt</mat-label>
+                            <input matInput type="datetime-local" formControlName="endTime" max="2100-12-31T00:00"
+                                [min]="form.value.startTime">
+                            <mat-error>Geben Sie einen gültigen Zeitpunkt an</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</form>
+<div class="m-3" *ngIf="form.valid">
+    <h3>Auswahl der Fahrzeugklasse</h3>
+    <mat-card>
+        <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
+        <div *ngIf="!loading">
+            <mat-form-field *ngIf="availableCarClasses.length > 0">
+                <mat-label>Fahrzeugklasse</mat-label>
+                <mat-select [(ngModel)]="selectedCarClass" (selectionChange)="checkBooking()">
+                    <mat-option *ngFor="let class of availableCarClasses" [value]="class">
+                        {{class.name}}
+                    </mat-option>
+                </mat-select>
+                
+                
+            </mat-form-field>
+            <div *ngIf="availableCarClasses.length < 1">
+                <cb-icon icon="sentiment_dissatisfied"
+                    label="Es sind für diesen Zeitraum leider keine Fahrzeuge verfügbar"></cb-icon>
+            </div>
+        </div>
+        <div *ngIf="form.valid && selectedCarClass && predictedPrice">
+
+
+
+            <div style="text-align: right;" *ngIf="authenticationService.isLoggedIn()">
+                <mat-chip> {{predictedPrice + "€"}} </mat-chip>
+                <button class="m-2" mat-raised-button color="accent" (click)="book()">Jetzt buchen!</button>
+
+            </div>
+            <div *ngIf="!authenticationService.isLoggedIn()">
+                Deine Buchung ist verfügbar! <a [routerLink]="['/login']">Melde dich an</a>, um deine Buchung zu buchen.
+            </div>
+        </div>
+    </mat-card>
+</div>

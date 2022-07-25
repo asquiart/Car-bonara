@@ -1,0 +1,50 @@
+<html>
+
+<body>
+  <form class="d-none d-lg-flex">
+    <div class="container" id="container">
+      <div class="form-container sign-in-container">
+        <ng-container *ngTemplateOutlet="loginFormTemplate"></ng-container>
+      </div>
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <button class="ghost" id="signIn">Sign In</button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h1>Account Erstellen</h1>
+            <p>Erstellen sie sich einen Account und starten sie ihre erste Fahrt!</p>
+            <button mat-raised-button color="primary" [routerLink]="['/register']" type="button">Registrieren</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <mat-card class="d-lg-none backcolor-primary">
+    <ng-container *ngTemplateOutlet="loginFormTemplate"></ng-container>
+  </mat-card>
+
+  <ng-template #loginFormTemplate>
+    <form action="#" [formGroup]="loginForm" (submit)="login()">
+      <h1 style="margin-bottom: 10px;" class="d-lg-none">Anmelden</h1>
+      <h1 style="margin-bottom: 10px;" class="d-none d-lg-inline">Herzlich Wilkommen</h1>
+      <mat-form-field color="accent">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" />
+        <mat-error>Gib eine gültige Email ein</mat-error>
+      </mat-form-field>
+      <mat-form-field color="accent">
+        <mat-label>Passwort</mat-label>
+        <input matInput type="password" formControlName="password" />
+        <mat-error>Gib ein Passwort ein</mat-error>
+      </mat-form-field>
+      <a [href]="forgotPasswordAddress" class="topAnchor mb-1">Passwort Vergessen?</a>
+      <a [routerLink]="['/register']" class="d-lg-none mb-1">Noch kein Konto? Registrieren!</a>
+      <button mat-raised-button color="accent" [disabled]="loginForm.invalid">Anmelden</button>
+    </form>
+  </ng-template>
+
+</body>
+
+</html>

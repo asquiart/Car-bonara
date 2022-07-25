@@ -1,0 +1,64 @@
+<h1>Tarifübersicht</h1>
+
+<div *ngFor="let p of databaseService.plans">
+
+
+    <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header style="background-color: rgb(233, 233, 233);">
+
+            <mat-panel-title>
+                <div style="vertical-align: middle;">
+
+
+                    <span>
+                        <mat-chip>{{p.id}}</mat-chip>
+                    </span>
+                    <span class="mx-3">
+                        {{p.name}}
+                    </span>
+
+
+                </div>
+
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+
+        <div class="col" style="text-align: start;">
+
+            <div class="my-2">
+
+                <div class="row">
+                    <cb-icon icon="paid" [label]="'Anmeldegebühr: ' + p.registrationFee + '€'"> </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="event" [label]="'Tagespreis: ' + p.priceWholeDay + '€'"> </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="light_mode" [label]="'Stundenpreis (Tag): ' + p.priceHourDay + '€' "> </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="nightlight_round" [label]="'Stundenpreis (Nacht): ' + p.priceHourNight + '€' "> </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="warning" [label]="'Stundenpreis (Verspätung): ' + p.priceHourOverdue + '€' "> </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="add_road" [label]="'Kilometerpreis: ' + p.priceKm + '€' "> </cb-icon>
+                </div>
+
+            </div>
+            <div class="row">
+                <button mat-raised-button color="primary" (click)="change(p)"> Bearbeiten</button>
+            </div>
+        </div>
+    </mat-expansion-panel>
+
+
+
+
+</div>
+
+<div class="row">
+    <button mat-raised-button color="accent" (click)="addNew()"> Hinzufügen</button>
+</div>

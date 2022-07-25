@@ -1,0 +1,99 @@
+<mat-card>
+    <mat-card-title>
+        Fahrzeugmodell
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="form">
+
+        <div class="container" style="margin-right: 6%;">
+            
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Nummernschild</mat-label>
+                    <input matInput formControlName="licensePlateNumber"  />
+                    <mat-error>
+                        Geben Sie ein gültiges Kennzeichen ein
+                    </mat-error>
+                </mat-form-field>
+            </div>           
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Kilometerstand</mat-label>
+                    <input matInput formControlName="kilometersDriven" type="number" />
+                    <mat-error>
+                        Geben Sie einen gültigen Kilometerstand ein
+                    </mat-error>
+                </mat-form-field>
+            </div>           
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Tankfüllung</mat-label>
+                    <input matInput formControlName="tanklevel"  type="number" />
+                    <mat-error>
+                        Geben Sie einen gültige Tankfüllung ein
+                    </mat-error>
+                </mat-form-field>
+            </div>  
+           
+            <div class="row">
+                <mat-form-field appearance="fill">
+                    <mat-label>Fahrzeugmodell</mat-label>
+                    <mat-select formControlName="type">
+                        <mat-option *ngFor="let cartype of databaseService.cartypes " [value]="cartype.id">
+                            {{ cartype.manufacturer + " " +  cartype.name}}
+                        </mat-option>                       
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <mat-form-field appearance="fill">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option *ngFor="let carstatus of carStatus " [value]="carstatus.enum">
+                            {{carstatus.name}}
+                        </mat-option>                       
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <mat-form-field appearance="fill">
+                    <mat-label>Verriegelung</mat-label>
+                    <mat-select formControlName="lockStatus">
+                        <mat-option *ngFor="let lockstatus of lockStatus " [value]="lockstatus.enum">
+                            {{lockstatus.name}}
+                        </mat-option>                       
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+            <div class="row" *ngIf="!data">
+                <cb-select-station label="Startstation" formControlName="startstation">
+               
+                </cb-select-station>
+            </div>
+
+          
+        <div class="row" *ngIf="!data">
+            <mat-form-field appearance="fill">
+                <mat-label>Zeitpunkt der Bereitstellung</mat-label>
+                <input matInput type="datetime-local" formControlName="time" max="2100-12-31T00:00"
+                min="2000-01-01T00:00">
+            <mat-error>Geben Sie einen gültigen Zeitpunkt an</mat-error>
+            </mat-form-field>
+        </div>
+
+        </div>
+
+        </form>
+    </mat-card-content>
+    <mat-card-actions style="text-align: center;">
+        <button mat-raised-button color="primary" ass="m-4"  (click)="cancel()">Abbrechen</button>
+        <button mat-raised-button color="accent" class="m-4" [disabled]="form.invalid" (click)="onSubmit()">Speichern</button>
+    </mat-card-actions>
+    <mat-card-footer>
+        <mat-progress-bar mode="indeterminate" *ngIf="working"></mat-progress-bar>
+    </mat-card-footer>
+</mat-card>

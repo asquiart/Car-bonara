@@ -1,0 +1,149 @@
+<h1>Registrieren</h1>
+
+<mat-label>Führen Sie folgende Schritte nacheinander aus, um Ihr neues Konto bei Carbonara anzulegen:</mat-label>
+<form [formGroup]="registerForm">
+    <mat-stepper #stepper [orientation]="(stepperOrientation | async)!" linear="true">
+        <mat-step label="Persönliche Informationen" [stepControl]="personalFormGroup">
+
+            <div formGroupName="personalFormGroup">
+                <div>
+                    <div class="col-md-8 col-xl-6 px-4">
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="w-100">
+                                    <mat-label>Anrede</mat-label>
+                                    <input matInput type="text" [matAutocomplete]="autoSalutation"
+                                        formControlName="formOfAddress" maxlength="50" />
+                                    <mat-autocomplete matInput #autoSalutation="matAutocomplete">
+                                        <mat-option *ngFor="let salOption of filteredSalutations" [value]="salOption">
+                                            {{salOption}}</mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field style="display: block;">
+                                    <mat-label>Titel</mat-label>
+                                    <input matInput type="text" [matAutocomplete]="autoTitle" formControlName="title"
+                                        maxlength="50" />
+                                    <mat-autocomplete #autoTitle="matAutocomplete">
+                                        <mat-option *ngFor="let titleOption of filteredTitles" [value]="titleOption">
+                                            {{titleOption}}</mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <mat-form-field class="w-100">
+                                <mat-label>Vorname</mat-label>
+                                <input matInput formControlName="firstname" maxlength="100">
+                                <mat-error *ngIf="registerForm.get('personalFormGroup.firstname')?.invalid">
+                                    Geben Sie einen Vornamen ein, der eine Länge von 2-50 Zeichen hat.</mat-error>
+                            </mat-form-field><br>
+                        </div>
+                        <div class="col">
+                            <mat-form-field class="w-100">
+                                <mat-label>Nachname</mat-label>
+                                <input matInput formControlName="lastname" maxlength="100">
+                                <mat-error *ngIf="registerForm.get('personalFormGroup.lastname')?.invalid">
+                                    Geben Sie einen Nachnamen ein, der eine Länge von 2-50 Zeichen hat.</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </mat-step>
+        <mat-step label="Anmeldeinformationen" [stepControl]="accountFormGroup">
+
+            <div formGroupName="accountFormGroup">
+                <div class="col-md-8 col-xl-6 px-4">
+                    <div class="row">
+                        <mat-form-field class="w-100">
+                            <mat-label>Email-Adresse</mat-label>
+                            <input matInput type="email" formControlName="email" maxlength="50">
+                            <mat-error *ngIf="registerForm.get('accountFormGroup.email')?.invalid">
+                                Geben Sie eine gültige Email-Adresse ein. Die Maximallänge beträgt 50 Zeichen.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="row pt-3">
+                        <mat-form-field class="w-100">
+                            <mat-label>Passwort</mat-label>
+                            <input matInput type="password" formControlName="password" maxlength="50">
+                            <mat-error *ngIf="registerForm.get('accountFormGroup.password')?.invalid">
+                                Geben Sie ein gültiges Passwort ein. Probleme: {{getPasswordErrors()}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+        </mat-step>
+        <mat-step label="Adresse" [stepControl]="addressFormGroup">
+
+            <div formGroupName="addressFormGroup">
+                <div class="col-md-8 col-xl-6 px-4">
+                    <cb-address-input formControlName="address"></cb-address-input>
+                </div>
+            </div>
+
+        </mat-step>
+        <mat-step label="Führerschein" [stepControl]="licenseFormGroup" [hasError]="">
+
+            <div formGroupName="licenseFormGroup">
+                <div class="col-md-8 col-xl-6 px-4">
+                    <mat-checkbox formControlName="submitLicenseLater">
+                        In einer Filiale nachreichen
+                    </mat-checkbox>
+                    <mat-card class="mt-3" disabled="true">
+                        <mat-card-content>
+                            <p>
+                                Damit Sie Fahrzeuge bei Carbonara ausleihen können, müssen Sie einen gültigen
+                                Führerschein besitzen.
+                                Laden Sie ein Foto hoch, auf dem die Vorderseite des Führerscheins gut zu erkennen ist.
+                                Ihr Name muss hierbei mit dem vorher Angegebenem übereinstimmen.
+                                <br />
+                                Alternativ können Sie auch Ihren Führerschein nach der Registrierung in einer Carbonara-Filiale nachreichen. 
+                                Klicken Sie hierfür die obere Checkbox an und vereinbaren Sie schauen Sie in einer Filiale Ihrer Wahl vorbei.
+                            </p>
+                            <p class="mt-4">
+                                <input type="file" multiple="false" id="licenseUpload" (change)="selectLicenseFile($event)">
+                            </p>
+                        </mat-card-content>
+                    </mat-card>
+                    <div class="mt-4">
+                        <mat-form-field>
+                            <mat-label>Führerscheinnummer</mat-label>
+                            <input matInput formControlName="driverlicenseNumber">
+                            <mat-error>Geben Sie eine gültige Führerscheinnummer ein</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+        </mat-step>
+        <mat-step label="Zahlungsmethode" [stepControl]="paymentFormGroup">
+            Wählen Sie eine Zahlungsmethode:
+            <div class="m-4" formGroupName="paymentFormGroup">
+                <cb-payment-select formControlName="paymentMethod"></cb-payment-select>
+            </div>
+        </mat-step>
+        <mat-step label="Tarifauswahl" [stepControl]="planFormGroup">
+            Wählen Sie einen Tarif aus:
+            <div class="m-4" formGroupName="planFormGroup">
+                <cb-plan-select formControlName="plan"></cb-plan-select>
+            </div>
+
+            Erfahre <a (click)="openPlans()" class="color-accent clickable">hier</a> mehr über die verfügbaren Tarife!
+
+            <div style="text-align: right;">
+            <button mat-raised-button color="accent" [disabled]="registerForm.invalid" (click)="register()">Registrieren!</button>
+            </div>
+        </mat-step>
+
+        <!-- Custom icons for the stepper-->
+        <ng-template matStepperIcon="edit">
+            <mat-icon>check</mat-icon>
+        </ng-template>
+    </mat-stepper>
+</form>

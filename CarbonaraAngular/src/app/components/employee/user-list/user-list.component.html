@@ -1,0 +1,73 @@
+<h1>Benutzerübersicht</h1>
+
+<div *ngFor="let u of usermanagmentService.user">
+
+    <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header style="background-color: rgb(233, 233, 233);">
+            <mat-panel-title>
+                <div class="row">
+                    <div class="col">
+                        <div style="vertical-align: middle;">
+                            <span>
+                                <mat-chip>{{u.id}}</mat-chip>
+                            </span>
+                            <span class="mx-3">
+                                {{u.person.firstname + " " + u.person.lastname}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="col" style="text-align: start;">
+            <div class="my-2">
+                <div class="row">
+                    <cb-icon icon="email" [label]="'E-Mail: ' + u.person.email "> </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="subject" [label]="'Anrede: ' + u.person.formOfAddress "> </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="event" [label]="'Letzter Login: ' +  getDate(u.person.lastLogin)"> </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="location_on"
+                        [label]="'Adresse: ' + u.address.street + ' ' + u.address.number + ', ' + u.address.zip + ' ' + u.address.city + ', ' +  u.address.country ">
+                    </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="shopping_cart" [label]="'Tarif: ' + u.plan.name "> </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="payment" [label]="'Zahlungsmethode: ' + availablePaymentMethods[ u.payment].name ">
+                    </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="fact_check" [label]="'Führerscheinnummer: ' + u.driverlicenseNumber "> </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="vpn_key" [label]="'Schlüsselkarten-Nummer: ' + u.cardId "> </cb-icon>
+                </div>
+
+                <div style="display: inline">
+                    <div class="row" style="text-align: start;">
+                        <div class="col">
+                            <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                                <mat-button-toggle [checked]="u.state == 0" (click)="unauthorizeUser(u)">Unautorisiert
+                                </mat-button-toggle>
+                                <mat-button-toggle [checked]="u.state == 1" (click)="authorizeUser(u)">Autorisiert
+                                </mat-button-toggle>
+                                <mat-button-toggle [checked]="u.state == 2" (click)="lockUser(u)">Gesperrt
+                                </mat-button-toggle>
+                            </mat-button-toggle-group>
+                        </div>
+                    </div>
+
+                    <button mat-raised-button style="float: right" color="accent" (click)="impersonate(u)">Identität übernehmen</button>
+                </div>
+            </div>
+        </div>
+    </mat-expansion-panel>
+
+</div>

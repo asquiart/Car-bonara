@@ -1,0 +1,10 @@
+<mat-form-field *ngIf="databaseService.plans">
+    <mat-label>Tarif</mat-label>
+    <mat-select [disabled]="disabled" [(value)]="selectedId" (selectionChange)="select()">
+        <mat-option *ngFor="let plan of databaseService.plans" [value]="plan.id">
+            <span>
+                {{ plan.name }}
+            </span>
+        </mat-option>
+    </mat-select>
+</mat-form-field>

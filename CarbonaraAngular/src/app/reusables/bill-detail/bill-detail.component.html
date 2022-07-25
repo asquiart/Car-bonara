@@ -1,0 +1,66 @@
+<mat-card>
+    <mat-card-title>
+        <h1>{{"Rechnung Nr. " + data.id}}</h1>
+    </mat-card-title>
+    <mat-card-content>
+
+
+
+
+        <div class="container" style="margin-right: 6%;">
+
+            <div class="row">
+                {{ formatDate(data.billDate) }}
+            </div>
+
+            <div class="row">
+                <table mat-table [dataSource]="data.positions">
+
+                    <div class="px=3">
+                        <ng-container matColumnDef="position">
+                            <th mat-header-cell *matHeaderCellDef> Posten </th>
+                            <td mat-cell *matCellDef="let position"> {{position.item}} </td>
+                        </ng-container>
+                    </div>
+                    <div class="px=3">
+                        <ng-container matColumnDef="amount">
+                            <th mat-header-cell *matHeaderCellDef> Menge </th>
+                            <td mat-cell *matCellDef="let position"> {{formatNumber(position.amount)}} </td>
+                        </ng-container>
+                    </div>
+                    <div class="px=3">
+                        <ng-container matColumnDef="price">
+                            <th mat-header-cell *matHeaderCellDef> Stückpreis </th>
+                            <td mat-cell *matCellDef="let position"> {{formatNumber(position.pricePerAmount)}} </td>
+                        </ng-container>
+                    </div>
+                    <div class="px=3">
+                        <ng-container matColumnDef="totalAmount">
+                            <th mat-header-cell *matHeaderCellDef> Gesamtpreis </th>
+                            <td mat-cell *matCellDef="let position"> {{formatNumber(position.pricePerAmount *
+                                position.amount)}} </td>
+                        </ng-container>
+                    </div>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+            </div>
+
+            <div class="row">
+                <div class="px=5">
+                <div style="text-align: left">
+                    <b>
+                    {{"Gesamtbetrag: " + data.amount}}
+                </b>
+                </div>
+            </div></div>
+        </div>
+
+    </mat-card-content>
+    <mat-card-actions style="text-align: right;">
+        <button mat-raised-button color="primary" ass="m-4" (click)="close()">Fertig</button>
+    </mat-card-actions>
+
+</mat-card>

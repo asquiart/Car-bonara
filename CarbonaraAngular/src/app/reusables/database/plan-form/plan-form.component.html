@@ -1,0 +1,83 @@
+<mat-card>
+    <mat-card-title>
+        Tarif
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="form">
+
+        <div class="container" style="margin-right: 6%;">
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" />
+                    <mat-error>
+                        Geben Sie einen gültigen Namen ein
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Preis (Ganzer Tag)</mat-label>
+                    <input matInput formControlName="priceWholeDay" type="number" />
+                    <mat-error>
+                        Geben Sie einen gültigen Preis ein
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Stundenpries (Tag)</mat-label>
+                    <input matInput formControlName="priceHourDay" type="number" />
+                    <mat-error>
+                        Geben Sie einen gültigen Preis ein
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Stundenpreis (Nacht)</mat-label>
+                    <input matInput formControlName="priceHourNight" type="number" />
+                    <mat-error>
+                        Geben Sie einen gültigen Preis ein
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Stundenpreis (Überzogen)</mat-label>
+                    <input matInput formControlName="priceHourOverdue" type="number" />
+                    <mat-error>
+                        Geben Sie einen gültigen Preis ein
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Kilometerpreis</mat-label>
+                    <input matInput formControlName="priceKm" type="number" />
+                    <mat-error>
+                        Geben Sie einen gültigen Preis ein
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Anmeldegebühr</mat-label>
+                    <input matInput formControlName="registrationFee" type="number" />
+                    <mat-error>
+                        Geben Sie einen gültigen Preis ein
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        </form>
+    </mat-card-content>
+    <mat-card-actions style="text-align: center;">
+        <button mat-raised-button color="primary" ass="m-4"  (click)="cancel()">Abbrechen</button>
+        <button mat-raised-button color="accent" class="m-4" [disabled]="form.invalid" (click)="onSubmit()">Speichern</button>
+    </mat-card-actions>
+    <mat-card-footer>
+        <mat-progress-bar mode="indeterminate" *ngIf="working"></mat-progress-bar>
+    </mat-card-footer>
+</mat-card>

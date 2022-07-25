@@ -1,0 +1,66 @@
+<mat-card>
+    <mat-card-title>
+        <h1>Tarifübersicht</h1>
+    </mat-card-title>
+    <mat-card-content>
+
+
+
+
+        <div class="container" style="margin-right: 6%;">
+
+            
+            <div class="row">
+                <table mat-table [dataSource]="databaseService.plans">
+
+                   
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> Name </th>
+                            <td mat-cell *matCellDef="let plan"> {{plan.name}} </td>
+                        </ng-container>
+                                
+                        <ng-container matColumnDef="registrationFee">
+                            <th mat-header-cell *matHeaderCellDef> Anmeldegebühr </th>
+                            <td mat-cell *matCellDef="let plan"> {{plan.registrationFee + "€"}} </td>
+                        </ng-container>
+                     
+                        <ng-container matColumnDef="priceKm">
+                            <th mat-header-cell *matHeaderCellDef> Kilometerpreis </th>
+                            <td mat-cell *matCellDef="let plan"> {{plan.priceKm + "€"}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="priceWholeDay">
+                            <th mat-header-cell *matHeaderCellDef> Tagespreis </th>
+                            <td mat-cell *matCellDef="let plan"> {{plan.priceWholeDay + "€"}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="priceHourDay">
+                            <th mat-header-cell *matHeaderCellDef> Stundenpreis am Tag (5h-22h) </th>
+                            <td mat-cell *matCellDef="let plan"> {{plan.priceHourDay + "€"}} </td>
+                        </ng-container>
+
+                        
+                        <ng-container matColumnDef="priceHourNight">
+                            <th mat-header-cell *matHeaderCellDef> Stundenpreis in der Nacht (0h-5h & 22h-24h) </th>
+                            <td mat-cell *matCellDef="let plan"> {{plan.priceHourNight + "€"}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="priceHourOverdue">
+                            <th mat-header-cell *matHeaderCellDef> Preis pro überzogener Stunde </th>
+                            <td mat-cell *matCellDef="let plan"> {{plan.priceHourOverdue + "€"}} </td>
+                        </ng-container>
+
+                        
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+            </div>
+
+           
+        </div>
+
+    </mat-card-content>
+  
+</mat-card>

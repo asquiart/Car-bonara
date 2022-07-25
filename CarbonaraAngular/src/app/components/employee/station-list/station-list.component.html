@@ -1,0 +1,53 @@
+<h1>Stationsübersicht</h1>
+
+<div *ngFor="let s of databaseService.stations">
+
+
+    <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header style="background-color: rgb(233, 233, 233);">
+
+            <mat-panel-title>
+                <div style="vertical-align: middle;">
+
+
+                    <span>
+                        <mat-chip>{{s.id}}</mat-chip>
+                    </span>
+                    <span class="mx-3">
+                        {{s.name + " [ " + s.address.city + " ]"}}
+                    </span>
+
+
+                </div>
+
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+
+        <div class="col" style="text-align: start;">
+
+            <div class="my-2">
+
+                 <div class="row">
+                    <cb-icon icon="location_on" [label]="'Adresse: ' + s.address.street + ' ' + s.address.number + ', ' + s.address.zip + ' ' + s.address.city + ', ' +  s.address.country "> </cb-icon>
+                </div> 
+                <div class="row">
+                    <cb-icon icon="inventory" [label]="'Kapazität: ' + s.capacity "> </cb-icon>
+                </div> 
+
+
+            </div>
+            <div class="row">
+                <button mat-raised-button color="primary" (click)="change(s)"> Bearbeiten</button>
+            </div>
+        </div>
+    </mat-expansion-panel>
+
+
+
+
+</div>
+
+<div class="row">
+    <button mat-raised-button color="accent" (click)="addNew()"> Hinzufügen</button>
+</div>

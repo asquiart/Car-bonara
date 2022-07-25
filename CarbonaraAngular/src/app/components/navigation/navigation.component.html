@@ -1,0 +1,66 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      role="dialog"
+      mode="over"
+      opened="false">
+    <mat-toolbar>Carbonara</mat-toolbar>
+    <mat-nav-list>
+      <!-- Navigation when not logged in -->
+      <ng-container *ngIf="!authenticationService.isLoggedIn()">
+        <a mat-list-item [routerLink]="['/login']"><cb-icon icon="login" label="Anmelden"></cb-icon></a>
+        <a mat-list-item [routerLink]="['/register']"><cb-icon icon="person_add_alt" label="Registrieren"></cb-icon></a>
+        <a mat-list-item [routerLink]="['/booking/create']"><cb-icon icon="directions_car" label="Buchung anlegen"></cb-icon></a>
+        <a mat-list-item [routerLink]="['/plans']"><cb-icon icon="account_balance_wallet" label="Tarife"></cb-icon></a>
+      </ng-container>
+      <!-- Navigation when logged in -->
+      <ng-container *ngIf="authenticationService.isLoggedIn() && !authenticationService.isEmployee()">
+        <a mat-list-item [routerLink]="['/overview']"><cb-icon icon="view_list" label="Übersicht"></cb-icon></a>
+        <a mat-list-item [routerLink]="['/booking/create']"><cb-icon icon="post_add" label="Buchung anlegen"></cb-icon></a>
+        <a mat-list-item [routerLink]="['/booking/history']"><cb-icon icon="list" label="Buchungshistorie"></cb-icon></a>
+        <a mat-list-item [routerLink]="['/user/edit']"><cb-icon icon="person" label="Benutzer"></cb-icon></a>
+        <a mat-list-item [routerLink]="['/plans']"><cb-icon icon="account_balance_wallet" label="Tarifübersicht"></cb-icon></a>
+        
+        <a mat-list-item (click)="authenticationService.stopImpersonating()" *ngIf="authenticationService.isImpersonating()" class="impersonateitem"><cb-icon icon="supervisor_account" label="Identität verlassen"></cb-icon></a>
+      </ng-container>
+      <ng-container *ngIf="authenticationService.isLoggedIn() && authenticationService.isEmployee()">
+        <a mat-list-item [routerLink]="['/employee/cars']"><cb-icon icon="directions_car" label="Fahrzeuge"></cb-icon></a>
+        <a mat-list-item [routerLink]="['/employee/carclasses']"><cb-icon icon="directions_car" label="Fahrzeugklassen"></cb-icon></a>
+        <a mat-list-item [routerLink]="['/employee/cartypes']"><cb-icon icon="directions_car" label="Fahrzeugtypen"></cb-icon></a>
+        <a mat-list-item [routerLink]="['/employee/plans']"><cb-icon icon="payments" label="Tarife"></cb-icon></a>
+        <a mat-list-item [routerLink]="['/employee/stations']"><cb-icon icon="local_parking" label="Stationen"></cb-icon></a>
+        <a mat-list-item [routerLink]="['/employee/users']"><cb-icon icon="person" label="Benutzer"></cb-icon></a>
+        <a mat-list-item [routerLink]="['/admin/employees']" *ngIf="authenticationService.isAdmin()"><cb-icon icon="face" label="Mitarbeiter"></cb-icon></a>
+      </ng-container>      
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Button zum Einblenden der Seitennavigation"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        class="mr-2" >
+        <mat-icon aria-label="Icon zum Einblenden der Seitennavigation">menu</mat-icon>
+      </button>
+      <img *ngIf="!(isHandset$ | async)" src="./assets/images/transparent-logo.png" style="position: relative; bottom: -6%;" class="clickable" [routerLink]="[getStartpage()]" height="35%">
+      <img *ngIf="(isHandset$ | async)" src="./assets/images/square-icon.png" class="clickable" [routerLink]="[getStartpage()]" height="65%">
+
+      <span class="hspacer"></span>
+      <span (click)="logout()" class="link-clickable" *ngIf="authenticationService.isLoggedIn()">Abmelden</span>
+      <span [routerLink]="['/login']" class="link-clickable" *ngIf="!authenticationService.isLoggedIn()">Anmelden</span>
+      <mat-divider vertical style="height: 50%; background-color: white" class="mx-3"></mat-divider>
+      <reuse-userdisplay (click)="clickUser()"></reuse-userdisplay>
+    </mat-toolbar>
+    
+    <!-- Application content shown and selected by the router -->   
+    <div class="p-3">
+      <router-outlet></router-outlet>      
+    </div>
+
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- Include an empty mat-chip-list to load necessary directives for single mat-chips -->
+<mat-chip-list></mat-chip-list>

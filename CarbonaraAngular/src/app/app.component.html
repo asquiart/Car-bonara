@@ -1,0 +1,6 @@
+<!-- Navigation -->
+<material-design-main></material-design-main>
+
+<div class="offline" *ngIf="!networkService.online">
+    <cb-icon label="Du bist leider offline" icon="sentiment_dissatisfied" class="offline-icon color-accent"></cb-icon>
+</div>

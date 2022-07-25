@@ -1,0 +1,63 @@
+<h1>Fahrzeugübersicht</h1>
+
+<div *ngFor="let c of databaseService.cars">
+
+
+    <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header style="background-color: rgb(233, 233, 233);">
+
+            <mat-panel-title>
+                <div style="vertical-align: middle;">
+
+
+                    <span>
+                        <mat-chip>{{c.id}}</mat-chip>
+                    </span>
+                    <span class="mx-3">
+                        {{c.type.manufacturer + " " + c.type.name}}
+                    </span>
+
+
+                </div>
+
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+
+        <div class="col" style="text-align: start;">
+
+            <div class="my-2">
+
+                <div class="row">
+                    <cb-icon icon="sell" [label]="'Kennzeichen: ' + c.licensePlateNumber ">  </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="local_gas_station" [label]="'Tankfüllung: ' + c.tankLevel "> </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="speed" [label]="'Kilometerstand: ' + c.kilometersDriven "> </cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="directions_car" [label]="'Status: ' + carStatus[c.status].name "></cb-icon>
+                </div>
+                <div class="row">
+                    <cb-icon icon="local_gas_station" [label]="'Tankfüllung: ' + lockStatus[c.lockStatus].name">
+                    </cb-icon>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <button mat-raised-button color="primary" (click)="change(c)"> Bearbeiten</button>
+            </div>
+        </div>
+    </mat-expansion-panel>
+
+
+
+
+</div>
+
+<div class="row">
+    <button mat-raised-button color="accent" (click)="addNew()"> Hinzufügen</button>
+</div>

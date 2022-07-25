@@ -1,0 +1,11 @@
+<h2>Willkommen {{getName()}}!</h2>
+<div *ngIf="!authenticationService.isAdmin()">
+    {{ getMotd() }}
+</div>
+<div *ngIf="authenticationService.isAdmin()">
+    Einen wunderschönen Tag wünschen wir dir.
+</div>
+
+<div class="col">
+    <button mat-raised-button color="primary" (click)="changePassword()"> Passwort ändern </button>
+</div>

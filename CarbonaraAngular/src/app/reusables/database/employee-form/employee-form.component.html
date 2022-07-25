@@ -1,0 +1,68 @@
+<mat-card>
+    <mat-card-title>
+        Mitarbeiter
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="form">
+
+        <div class="container" style="margin-right: 6%;">
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Anrede</mat-label>
+                    <input matInput formControlName="formOfAddress" />
+                    <mat-error>
+                        Geben Sie eine gültige Anrede ein
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Title</mat-label>
+                    <input matInput formControlName="title" />
+                    <mat-error>
+                        Geben Sie einen gültige Titel ein
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Vorname</mat-label>
+                    <input matInput formControlName="firstname" />
+                    <mat-error>
+                        Geben Sie einen gültigen Namen ein
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Nachname</mat-label>
+                    <input matInput formControlName="lastname" />
+                    <mat-error>
+                        Geben Sie einen gültigen Namen ein
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>E-Mail</mat-label>
+                    <input matInput formControlName="email" />
+                    <mat-error>
+                        Geben Sie einen gültigen Namen ein
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                    <mat-checkbox formControlName="isAdmin">Als Admin anlegen</mat-checkbox>
+            </div>
+        </div>
+
+        </form>
+    </mat-card-content>
+    <mat-card-actions style="text-align: center;">
+        <button mat-raised-button color="primary" ass="m-4"  (click)="cancel()">Abbrechen</button>
+        <button mat-raised-button color="accent" class="m-4" [disabled]="form.invalid" (click)="onSubmit()">Speichern</button>
+    </mat-card-actions>
+    <mat-card-footer>
+        <mat-progress-bar mode="indeterminate" *ngIf="working"></mat-progress-bar>
+    </mat-card-footer>
+</mat-card>

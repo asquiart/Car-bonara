@@ -1,0 +1,10 @@
+<mat-form-field>
+    <mat-label>Zahlungsmethode</mat-label>
+    <mat-select [(value)]="selectedIndex" [disabled]="disabled" (selectionChange)="select()">
+        <mat-option *ngFor="let pmethod of availablePaymentMethods; let i = index" [value]="i">
+            <span>
+                <img [src]="pmethod.imageUrl" height="30" style="vertical-align: middle;" /> <span style="vertical-align: middle;">{{ pmethod.name }}</span>
+            </span>
+        </mat-option>
+    </mat-select>
+</mat-form-field>

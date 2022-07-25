@@ -1,0 +1,45 @@
+services:
+  db:
+    image: mariadb:latest
+    container_name: db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "DSY^#A2H6FyeX^gt"
+      MYSQL_DATABASE: Carbonara
+      MYSQL_USER: carbonara
+      MYSQL_PASSWORD: "bpx04sYqIlcVbJRC"
+    volumes:
+      - mariadb:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: pma
+    restart: always
+    links:
+      - db
+    ports:
+      - 8081:80
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 0
+
+  angular:
+    image: registry.gitlab.com/jehlers/softw2carsharing/angular
+    container_name: angular
+    restart: always
+    links:
+      - webapi
+    ports:
+      - 8082:8080
+
+  webapi:
+    image: registry.gitlab.com/jehlers/softw2carsharing/webapi
+    container_name: webapi
+    restart: always
+    links:
+      - db
+
+volumes:
+  mariadb:
+

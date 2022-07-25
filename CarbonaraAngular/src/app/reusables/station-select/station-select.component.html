@@ -1,0 +1,10 @@
+<mat-form-field appearance="fill">
+    <mat-label>{{label}}</mat-label>
+    <mat-select (selectionChange)="onSelect()" [(value)]="selectedStation">
+      <mat-optgroup *ngFor="let group of stations" [label]="group.city">
+        <mat-option *ngFor="let station of group.stations" [value]="station" [title]="getAddressTitle(station)">
+          {{ station.name }}
+        </mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field>

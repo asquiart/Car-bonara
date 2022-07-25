@@ -1,0 +1,42 @@
+<ng-container [formGroup]="form">
+    <div class="row">
+        <div class="col col-lg-8">
+            <mat-form-field class="w-100">
+                <mat-label>Straße</mat-label>
+                <input matInput type="text" formControlName="street" maxlength="100" (change)="change()" />
+                <mat-error>
+                    Geben Sie einen Straßennamen an.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col col-lg-3">
+            <mat-form-field class="w-100">
+                <mat-label>Hausnummer</mat-label>
+                <input matInput type="text" formControlName="number" maxlength="10" min="0" (change)="change()" />
+                <mat-error>
+                    Fehlende Hausnummer.
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-3">
+            <mat-form-field class="w-100">
+                <mat-label>Postleitzahl</mat-label>
+                <input matInput formControlName="zip" type="text" maxlength="5" (change)="change()">
+                <mat-error>
+                    Geben Sie eine 5-stellige Postleitzahl an.
+                </mat-error>
+            </mat-form-field><br>
+        </div>
+        <div class="col col-lg-8">
+            <mat-form-field class="w-100">
+                <mat-label>Stadt</mat-label>
+                <input matInput formControlName="city" maxlength="100" (change)="change()">
+                <mat-error>
+                    Geben Sie einen Stadtnamen an.
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+</ng-container>

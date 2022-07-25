@@ -1,0 +1,52 @@
+<h1>Fahrzeugklassenübersicht</h1>
+
+<div *ngFor="let c of databaseService.carclasses">
+
+
+    <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header style="background-color: rgb(233, 233, 233);">
+
+            <mat-panel-title>
+                <div style="vertical-align: middle;">
+
+
+                    <span>
+                        <mat-chip>{{c.id}}</mat-chip>
+                    </span>
+                    <span class="mx-3">
+                        {{c.name}}
+                    </span>
+
+
+                </div>
+
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+
+        <div class="col" style="text-align: start;">
+
+            <div class="my-2">
+
+
+                <div class="row">
+                    <cb-icon icon="paid" [label]="'Preisfaktor: ' + c.priceFaktor "> </cb-icon>
+                </div>
+               
+
+
+            </div>
+            <div class="row">
+                <button mat-raised-button color="primary" (click)="change(c)"> Bearbeiten</button>
+            </div>
+        </div>
+    </mat-expansion-panel>
+
+
+
+
+</div>
+
+<div class="row">
+    <button mat-raised-button color="accent" (click)="addNew()"> Hinzufügen</button>
+</div>

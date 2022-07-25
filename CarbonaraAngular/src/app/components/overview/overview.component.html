@@ -1,0 +1,27 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<div class="content">
+      
+      <div class="card" [routerLink]="['/booking']">
+            <div class="icon"><i class="material-icons md-36">minor_crash</i></div>
+            <p class="title" style="color:black;">Buchen</p>
+            <p class="text" style="color:black;">Fahrzeug Buchen</p>
+      </div>
+      <div class="card" [routerLink]="['/booking/history']">
+            <div class="icon"><i class="material-icons md-36">history</i></div>
+            <p class="title" style="color:black;">Buchungsverlauf</p>
+            <p class="text" style="color:black;">Aktuelle und vergangenen Buchungen einsehen</p>
+      </div>
+      <!--
+      <div class="card" [routerLink]="['/user/edit']">
+            <div class="icon"><i class="material-icons md-36">settings</i></div>
+            <p class="title" style="color:black;">Einstellungen</p>
+            <p class="text" style="color:black;">Persöhnliche Einstellungen Anpassen</p>
+      </div>
+      -->
+      <div class="card" [routerLink]="['/user/edit']">
+            <div class="icon"><i class="material-icons md-36">tune</i></div>
+            <p class="title" style="color:black;">Profil Bearbeiten</p>
+            <p class="text" style="color:black;">Änderungen an ihrem Profil vornehmen</p>
+      </div>
+</div>
